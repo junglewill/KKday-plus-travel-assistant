@@ -29,14 +29,14 @@ class Window(tk.Frame):
 		default1 = "要的行程"
 		self.txt1 = tk.Entry(self, bd=1)
 		self.txt1.insert(0, default1)
-		self.txt1.bind('<FocusIn>', self.on_entry_click(self.txt1, default1))
-		self.txt1.bind('<FocusOut>', self.on_focusout(self.txt1, default1))
+		self.txt1.bind('<FocusIn>', lambda event:self.on_entry_click(self.txt1, default1))
+		self.txt1.bind('<FocusOut>', lambda event:self.on_focusout(self.txt1, default1))
 		self.txt1.config(fg='grey')
 		default2 = "不要的行程"
 		self.txt2 = tk.Entry(self, bd=1)
 		self.txt2.insert(0, default2)
-		self.txt2.bind('<FocusIn>', self.on_entry_click(self.txt2, default2))
-		self.txt2.bind('<FocusOut>', self.on_focusout(self.txt2, default2))
+		self.txt2.bind('<FocusIn>', lambda event:self.on_entry_click(self.txt2, default2))
+		self.txt2.bind('<FocusOut>', lambda event:self.on_focusout(self.txt2, default2))
 		self.txt2.config(fg='grey')
 
 		self.btn1 = tk.Button(self, height=2, width=8, text="Search", command=self.clickBtn, font=f)
