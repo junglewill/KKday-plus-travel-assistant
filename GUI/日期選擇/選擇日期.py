@@ -35,7 +35,7 @@ class Calendar():
         # 配置畫布和正確綁定，以設定日期
         self.__setup_selection(sel_bg, sel_fg)
 
-        # 儲存項ID，用于稍后插入。
+        # 儲存項ID，用於稍后插入。
         self._items = [self._calendar.insert('', 'end', values='') for _ in range(6)]
 
         #在當前空日曆插入日期
@@ -264,16 +264,16 @@ class Calendar():
 
     def _main_judge(self):
         #"""判斷窗口是否在最頂層"""
-        try:
+        #try:
             #s.master 為 TK 窗口
             #if not s.master.focus_displayof(): s._exit()
             #else: s.master.after(10, s._main_judge)
 
             #s.master 为 toplevel 窗口
-            if s.master.focus_displayof() == None or 'toplevel' not in str(self.master.focus_displayof()): self._exit()
-            else: s.master.after(10, self._main_judge)
-        except:
-            self.master.after(10, self._main_judge)
+        #    if s.master.focus_displayof() == None or 'toplevel' not in str(self.master.focus_displayof()): self._exit()
+        #    else: s.master.after(10, self._main_judge)
+        #except:
+        self.master.after(10, self._main_judge)
 
         #s.master.tk_focusFollowsMouse() # 焦點跟随鼠標
 
