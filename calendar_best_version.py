@@ -165,7 +165,7 @@ class Calendar():
         year, month = self._date.year, self._date.month
 
         # update header text (Month, YEAR)
-        header = self._cal.formatmonthname(year, month, 0)
+        self.header = self._cal.formatmonthname(year, month, 0)
 
         # 更新日历显示的日期
         cal = self._cal.monthdayscalendar(year, month)
