@@ -9,7 +9,7 @@ timedelta = calendar.datetime.timedelta
 class Calendar():
 
     def __init__(self, point = None, position = None):
-        # point    提供一个基點，來確定窗口位置
+        # point    提供一個基點，來確定窗口位置
         # position 窗口在點的位置 'ur'-右上, 'ul'-左上, 'll'-左下, 'lr'-右下
         #self.master = tk.Tk()
         self.master = tk.Toplevel()
