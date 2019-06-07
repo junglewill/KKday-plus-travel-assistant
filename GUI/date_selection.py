@@ -126,7 +126,7 @@ class Calendar():
         self._calendar = ttk.Treeview(gframe, show='', selectmode='none', height=7)
         self._calendar.pack(expand=1, fill='both', side='bottom', padx=5)
 
-        ttk.Button(bframe, text = "确 定", width = 6, command = lambda: self._exit(True)).grid(row = 0, column = 0, sticky = 'ns', padx = 20)
+        ttk.Button(bframe, text = "確 定", width = 6, command = lambda: self._exit(True)).grid(row = 0, column = 0, sticky = 'ns', padx = 20)
         ttk.Button(bframe, text = "取 消", width = 6, command = self._exit).grid(row = 0, column = 1, sticky = 'ne', padx = 20)
         
         
