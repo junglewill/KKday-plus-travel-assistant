@@ -96,7 +96,7 @@ close_action=
         if width < 120: width = 120
         self.delete (ALL)
         if self.level != 3:
-            a = [self.create_polygon ((40, 0), (width - 40, 0), (width - 20, 20), (20, 20), fill = "redpy", outline = "black"),
+            a = [self.create_polygon ((40, 0), (width - 40, 0), (width - 20, 20), (20, 20), fill = "red", outline = "black"),
                  self.create_line (int (width / 2) - 10, 15, int (width / 2), 5, width = 2),
                  self.create_line (int (width / 2) + 10, 15, int (width / 2), 5, width = 2)]
             for i in a: self.tag_bind (i, "<Button-1>", lambda event: self.__upLevel ())
