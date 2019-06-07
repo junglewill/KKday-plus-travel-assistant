@@ -9,9 +9,9 @@ timedelta = calendar.datetime.timedelta
 class Calendar():
 
     def __init__(self, point = None, position = None):
-        # point    提供一个基点，来确定窗口位置
-        # position 窗口在点的位置 'ur'-右上, 'ul'-左上, 'll'-左下, 'lr'-右下
-        #s.master = tk.Tk()
+        # point    提供一个基點，來確定窗口位置
+        # position 窗口在點的位置 'ur'-右上, 'ul'-左上, 'll'-左下, 'lr'-右下
+        #self.master = tk.Tk()
         self.master = tk.Toplevel()
         self.master.withdraw()
         fwday = calendar.SUNDAY
@@ -23,22 +23,22 @@ class Calendar():
         sel_fg = '#05640e'
 
         self._date = datetime(year, month, 1)
-        self._selection = None # 设置为未选中日期
+        self._selection = None # 設置為未選中日期
 
         self.G_Frame = ttk.Frame(self.master)
 
         self._cal = self.__get_calendar(locale, fwday)
 
-        self.__setup_styles()       # 创建自定义样式
+        self.__setup_styles()       # 創建自定義函式
         self.__place_widgets()      # pack/grid 小部件
-        self.__config_calendar()    # 调整日历列和安装标记
-        # 配置画布和正确的绑定，以选择日期。
+        self.__config_calendar()    # 調整日曆列和安裝標示
+        # 配置畫布和正確綁定，以設定日期
         self.__setup_selection(sel_bg, sel_fg)
 
-        # 存储项ID，用于稍后插入。
+        # 儲存項ID，用于稍后插入。
         self._items = [self._calendar.insert('', 'end', values='') for _ in range(6)]
 
-        # 在当前空日历中插入日期
+        #在當前空日曆插入日期
         self._update()
 
         self.G_Frame.pack(expand = 1, fill = 'both')
@@ -55,10 +55,10 @@ class Calendar():
         self.master.after(300, self._main_judge)
         self.master.deiconify()
         self.master.focus_set()
-        self.master.wait_window() #这里应该使用wait_window挂起窗口，如果使用mainloop,可能会导致主程序很多错误
+        self.master.wait_window() #這裡應該使用wait_window掛起窗口，如果使用mainloop,可能會導致主程序很多錯誤
 
     def __get_calendar(self, locale, fwday):
-        # 实例化适当的日历类
+        # 實例化適當的日曆列
         if locale is None:
             return calendar.TextCalendar(fwday)
         else:
@@ -86,7 +86,7 @@ class Calendar():
             return r[item]
 
     def __setup_styles(self):
-        # 自定义TTK风格
+        # 自定義TTK風格
         style = ttk.Style(self.master)
         arrow_layout = lambda dir: (
             [('Button.focus', {'children': [('Button.%sarrow' % dir, None)]})]
@@ -95,8 +95,8 @@ class Calendar():
         style.layout('R.TButton', arrow_layout('right'))
 
     def __place_widgets(self):
-        # 标头框架及其小部件
-        Input_judgment_num = self.master.register(self.Input_judgment)  # 需要将函数包装一下，必要的
+        # 標頭框架及其小部件
+        Input_judgment_num = self.master.register(self.Input_judgment)  # 將函数包装一下
         hframe = ttk.Frame(self.G_Frame)
         gframe = ttk.Frame(self.G_Frame)
         bframe = ttk.Frame(self.G_Frame)
@@ -122,7 +122,7 @@ class Calendar():
         self.CB_month.bind("<<ComboboxSelected>>", self._update)
         tk.Label(hframe, text = '月', justify = 'left').grid(in_=hframe, column=4, row=0)
 
-        # 日历部件
+        # 日曆部件
         self._calendar = ttk.Treeview(gframe, show='', selectmode='none', height=7)
         self._calendar.pack(expand=1, fill='both', side='bottom', padx=5)
 
@@ -141,7 +141,7 @@ class Calendar():
         self._calendar['columns'] = cols
         self._calendar.tag_configure('header', background='grey90')
         self._calendar.insert('', 'end', values=cols, tag='header')
-        # 调整其列宽
+        # 調整其列寬
         font = tkFont.Font()
         maxwidth = max(font.measure(col) for col in cols)
         for col in cols:
@@ -167,7 +167,7 @@ class Calendar():
         # update header text (Month, YEAR)
         self.header = self._cal.formatmonthname(year, month, 0)
 
-        # 更新日历显示的日期
+        # 更新日曆顯示的日期
         cal = self._cal.monthdayscalendar(year, month)
         for indx, item in enumerate(self._items):
             week = cal[indx] if indx < len(cal) else []
@@ -175,7 +175,7 @@ class Calendar():
             self._calendar.item(item, values=fmt_week)
 
     def _show_select(self, text, bbox):
-        """为新的选择配置画布。"""
+        #"""為新的選擇配置畫布。"""
         x, y, width, height = bbox
 
         textw = self._font.measure(text)
@@ -187,36 +187,36 @@ class Calendar():
         canvas.place(in_=self._calendar, x=x, y=y)
 
     def _pressed(self, evt = None, item = None, column = None, widget = None):
-        """在日历的某个地方点击。"""
+        #"""在日曆的某個地方點擊。"""
         if not item:
             x, y, widget = evt.x, evt.y, evt.widget
             item = widget.identify_row(y)
             column = widget.identify_column(x)
 
         if not column or not item in self._items:
-            # 在工作日行中单击或仅在列外单击。
+            # 在工作日行中單擊或僅在列外單擊。
             return
 
         item_values = widget.item(item)['values']
-        if not len(item_values): # 这个月的行是空的。
+        if not len(item_values): # 這個月的行是空的。
             return
 
         text = item_values[int(column[1]) - 1]
-        if not text: # 日期为空
+        if not text: # 日期為空
             return
 
         bbox = widget.bbox(item, column)
-        if not bbox: # 日历尚不可见
+        if not bbox: # 日曆尚不可見
             self.master.after(20, lambda : self._pressed(item = item, column = column, widget = widget))
             return
 
-        # 更新，然后显示选择
+        # 更新，然後顯示選擇
         text = '%02d' % text
         self._selection = (text, item, column)
         self._show_select(text, bbox)
 
     def _prev_month(self):
-        """更新日历以显示前一个月。"""
+        #"""更新日曆以顯示前一個月。"""
         self._canvas.place_forget()
         self._selection = None
 
@@ -227,7 +227,7 @@ class Calendar():
         self._update()
 
     def _next_month(self):
-        """更新日历以显示下一个月。"""
+        #"""更新日曆以顯示下一個月。"""
         self._canvas.place_forget()
         self._selection = None
 
@@ -240,14 +240,14 @@ class Calendar():
         self._update()
 
     def _update(self, event = None, key = None):
-        """刷新界面"""
+        #"""刷新界面"""
         if key and event.keysym != 'Return': return
         year = int(self.CB_year.get())
         month = int(self.CB_month.get())
         if year == 0 or year > 9999: return
         self._canvas.place_forget()
         self._date = datetime(year, month, 1)
-        self._build_calendar() # 重建日历
+        self._build_calendar() # 重建日曆
 
         if year == datetime.now().year and month == datetime.now().month:
             day = datetime.now().day
@@ -258,14 +258,14 @@ class Calendar():
                     self.master.after(100, lambda :self._pressed(item = item, column = column, widget = self._calendar))
 
     def _exit(self, confirm = False):
-        """退出窗口"""
+        #"""退出窗口"""
         if not confirm: self._selection = None
         self.master.destroy()
 
     def _main_judge(self):
-        """判断窗口是否在最顶层"""
+        #"""判斷窗口是否在最頂層"""
         try:
-            #s.master 为 TK 窗口
+            #s.master 為 TK 窗口
             #if not s.master.focus_displayof(): s._exit()
             #else: s.master.after(10, s._main_judge)
 
@@ -275,37 +275,38 @@ class Calendar():
         except:
             self.master.after(10, self._main_judge)
 
-        #s.master.tk_focusFollowsMouse() # 焦点跟随鼠标
+        #s.master.tk_focusFollowsMouse() # 焦點跟随鼠標
 
     def selection(self):
-        """返回表示当前选定日期的日期时间。"""
+        #"""返回表示當前選定日期的日期時間。"""
         if not self._selection: return None
 
         year, month = self._date.year, self._date.month
         return str(datetime(year, month, int(self._selection[0])))[:10]
 
     def Input_judgment(self, content):
-        """输入判断"""
-        # 如果不加上==""的话，就会发现删不完。总会剩下一个数字
+        #"""输入判斷"""
         if content.isdigit() or content == "":
             return True
         else:
             return False
 
-if __name__ == '__main__':
-    root = tk.Tk()
 
-    width, height = root.winfo_reqwidth() + 50, 50 #窗口大小
-    x, y = (root.winfo_screenwidth()  - width )/2, (root.winfo_screenheight() - height)/2
-    root.geometry('%dx%d+%d+%d' % (width, height, x, y )) #窗口位置居中
+    
+root = tk.Tk()
 
-    date_str = tk.StringVar()
-    date = ttk.Entry(root, textvariable = date_str)
-    date.place(x = 0, y = 0, relx = 5/20, rely = 1/6, relwidth = 14/20, relheigh = 2/3)
+width, height = root.winfo_reqwidth() + 50, 50 #窗口大小
+x, y = (root.winfo_screenwidth()  - width )/2, (root.winfo_screenheight() - height)/2
+root.geometry('%dx%d+%d+%d' % (width, height, x, y )) #窗口位置居中
 
-    date_str_gain = lambda: [
-        date_str.set(date)
-        for date in [Calendar((x, y), 'ur').selection()]
-        if date]
-    tk.Button(root, text = '日期:', command = date_str_gain).place(x = 0, y = 0, relx = 1/20, rely = 1/6, relwidth = 4/20, relheigh = 2/3)
-    root.mainloop()
+date_str = tk.StringVar()
+date = ttk.Entry(root, textvariable = date_str)
+date.place(x = 0, y = 0, relx = 5/20, rely = 1/6, relwidth = 14/20, relheigh = 2/3)
+
+date_str_gain = lambda: [
+    date_str.set(date)
+    for date in [Calendar((x, y), 'ur').selection()]
+    if date]
+tk.Button(root, text = '日期:', command = date_str_gain).place(x = 0, y = 0, relx = 1/20, rely = 1/6, relwidth = 4/20, relheigh = 2/3)
+
+root.mainloop()
