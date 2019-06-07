@@ -38,17 +38,54 @@ class Window(tk.Frame):
 		self.txt2.bind('<FocusIn>', lambda event:self.on_entry_click(self.txt2, default2))
 		self.txt2.bind('<FocusOut>', lambda event:self.on_focusout(self.txt2, default2))
 		self.txt2.config(fg='grey')
+		
+		#開始日期
+		self.date1_label1 = tk.Label(self, height=1, width=4, text="西元")
+		self.date1_txt1 = tk.Text(self, height = 1, width=4)
+		self.date1_label2 = tk.Label(self, height=1, width=1, text="年")
+		self.date1_txt2 = tk.Text(self, height = 1, width=2)
+		self.date1_label3 = tk.Label(self, height=1, width=1, text="月")
+		self.date1_txt3 = tk.Text(self, height = 1, width=2)
+		self.date1_label4 = tk.Label(self, height=1, width=1, text="日")
+		self.date1_label5 = tk.Label(self, height=1, width=2, text="到")
+		
+		self.date1_label1.grid(row=3, column=0, columnspan=1,sticky=tk.W)
+		self.date1_txt1.grid(row=3, column=1, columnspan=1,sticky=tk.W)
+		self.date1_label2.grid(row=3, column=2, columnspan=1,sticky=tk.W)
+		self.date1_txt2.grid(row=3, column=3, columnspan=1,sticky=tk.W)
+		self.date1_label3.grid(row=3, column=4, columnspan=1,sticky=tk.W)
+		self.date1_txt3.grid(row=3, column=5, columnspan=1,sticky=tk.W)
+		self.date1_label4.grid(row=3, column=6, columnspan=1,sticky=tk.W)
+		self.date1_label5.grid(row=3, column=7, columnspan=1,sticky=tk.E+tk.W)
+		
+		#結束日期
+		self.date2_label1 = tk.Label(self, height=1, width=4, text="西元")
+		self.date2_txt1 = tk.Text(self, height = 1, width=4)
+		self.date2_label2 = tk.Label(self, height=1, width=1, text="年")
+		self.date2_txt2 = tk.Text(self, height = 1, width=2)
+		self.date2_label3 = tk.Label(self, height=1, width=1, text="月")
+		self.date2_txt3 = tk.Text(self, height = 1, width=2)
+		self.date2_label4 = tk.Label(self, height=1, width=1, text="日")
+		
+		self.date2_label1.grid(row=3, column=9, columnspan=1,sticky=tk.W)
+		self.date2_txt1.grid(row=3, column=10, columnspan=1,sticky=tk.W)
+		self.date2_label2.grid(row=3, column=11, columnspan=1,sticky=tk.W)
+		self.date2_txt2.grid(row=3, column=12, columnspan=1,sticky=tk.W)
+		self.date2_label3.grid(row=3, column=13, columnspan=1,sticky=tk.W)
+		self.date2_txt3.grid(row=3, column=14, columnspan=1,sticky=tk.W)
+		self.date2_label4.grid(row=3, column=15, columnspan=1,sticky=tk.W)
+		
 
 		self.btn1 = tk.Button(self, height=2, width=8, text="Search", command=self.clickBtn, font=f)
 		self.cvsMain = tk.Canvas(self, width = 800, height = 600, bg = "white")
 		
 		
-		self.droplist1.grid(row=0, column=0, columnspan=2,sticky=tk.E+tk.W)
-		self.droplist2.grid(row=0, column=2, columnspan=2,sticky=tk.E+tk.W)
-		self.txt1.grid(row=1, column=0, columnspan=4,sticky=tk.E+tk.W)
-		self.txt2.grid(row=2, column=0, columnspan=4,sticky=tk.E+tk.W)
-		self.btn1.grid(row=1, column=4, rowspan=2, sticky=tk.E+tk.W)
-		self.cvsMain.grid(row=3, column=0, columnspan=4, sticky= tk.NE + tk.SW)
+		self.droplist1.grid(row=0, column=0, columnspan=8,sticky=tk.E+tk.W)
+		self.droplist2.grid(row=0, column=8, columnspan=8,sticky=tk.E+tk.W)
+		self.txt1.grid(row=1, column=0, columnspan=16,sticky=tk.E+tk.W)
+		self.txt2.grid(row=2, column=0, columnspan=16,sticky=tk.E+tk.W)
+		self.btn1.grid(row=2, column=17, rowspan=2, sticky=tk.E+tk.W)
+		self.cvsMain.grid(row=5, column=0, columnspan=18, sticky= tk.NE + tk.SW)
 
 	def clickBtn(self): 
 		country_to_use = self.variable1.get()
