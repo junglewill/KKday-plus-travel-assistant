@@ -292,21 +292,24 @@ class Calendar():
             return False
 
 
-    
-root = tk.Tk()
 
-width, height = root.winfo_reqwidth() + 50, 50 #窗口大小
-x, y = (root.winfo_screenwidth()  - width )/2, (root.winfo_screenheight() - height)/2
-root.geometry('%dx%d+%d+%d' % (width, height, x, y )) #窗口位置居中
+def run_calendar(name):
+    root = tk.Tk()
+    given_name=name
+    width, height = root.winfo_reqwidth() + 50, 50 #窗口大小
+    x, y = (root.winfo_screenwidth()  - width )/2, (root.winfo_screenheight() - height)/2
+    root.geometry('%dx%d+%d+%d' % (width, height, x, y )) #窗口位置居中
 
-date_str = tk.StringVar()
-date = ttk.Entry(root, textvariable = date_str)
-date.place(x = 0, y = 0, relx = 5/20, rely = 1/6, relwidth = 14/20, relheigh = 2/3)
+    date_str = tk.StringVar()
+    date = ttk.Entry(root, textvariable = date_str)
+    date.place(x = 0, y = 0, relx = 5/20, rely = 1/6, relwidth = 14/20, relheigh = 2/3)
 
-date_str_gain = lambda: [
-    date_str.set(date)
-    for date in [Calendar((x, y), 'ur').selection()]
-    if date]
-tk.Button(root, text = '日期:', command = date_str_gain).place(x = 0, y = 0, relx = 1/20, rely = 1/6, relwidth = 4/20, relheigh = 2/3)
+    date_str_gain = lambda: [
+        date_str.set(date)
+        for date in [Calendar((x, y), 'ur').selection()]
+        if date]
+    tk.Button(root, text = given_name, command = date_str_gain).place(x = 0, y = 0, relx = 1/20, rely = 1/6, relwidth = 6/20, relheigh = 2/3)
 
-root.mainloop()
+    root.mainloop()
+
+run_calendar('開始日期')
