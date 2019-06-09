@@ -17,13 +17,16 @@ class Window(tk.Frame):
 			messagebox.showinfo( "錯誤!", "結束日期早於開始日期")
 
 	def combine_func(self):
-		self.end_date_str_gain
+		self.end_date_str_gain()
 		if self.end_date_str.get() == "" or self.date_str.get() == "":
 			return
-		elif self.check_time(self.start_return_value.get(),self.end_return_value.get()) == 0:
+		elif self.check_time(self.date_str.get(),self.end_date_str.get()) == 0:
 			self.input_time_wrong_message_box()
+			self.combine_func()
+			
 		else:
 			return 
+		
 	
 	def create_widgets(self):
 		f = tkFont.Font(size = 20, family = "Courier New")
@@ -59,7 +62,6 @@ class Window(tk.Frame):
 		self.date_str = tk.StringVar()
 		self.date = ttk.Entry(self, textvariable = self.date_str)
 		self.date.grid(row = 3, column = 0, columnspan = 5,sticky = 'ew')
-		self.start_return_value = ""
 
 		self.date_str_gain = lambda: [
 			self.date_str.set(self.date)
@@ -72,7 +74,7 @@ class Window(tk.Frame):
 		self.end_date_str = tk.StringVar()
 		self.end_date = ttk.Entry(self, textvariable = self.end_date_str)
 		self.end_date.grid(row = 3, column = 8, columnspan = 5,sticky = 'ew')
-		self.end_return_value = ""
+
 
 		self.end_date_str_gain = lambda: [
 			self.end_date_str.set(self.end_date)
@@ -94,8 +96,8 @@ class Window(tk.Frame):
 		self.cvsMain.grid(row=5, column=0, columnspan=18, sticky= tk.NE + tk.SW)
 
 	def check_time(self,start,end):  #比較結束時間是否小於開始時間
-		start_time = datetime.strptime(start,'%Y-%d-%b')
-		end_time = datetime.strptime(end,'%Y-%d-%b')
+		start_time = datetime.strptime(start,'%Y-%m-%d')
+		end_time = datetime.strptime(end,'%Y-%m-%d')
 		if start_time > end_time:
 			return 0
 		else:
