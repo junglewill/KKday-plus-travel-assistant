@@ -3,8 +3,8 @@ from tkinter import ttk
 from tkinter import *
 import tkinter.font as tkFont
 from date_selection import Calendar
-import messagebox
-
+from datetime import datetime
+from tkinter import messagebox
 
 class Window(tk.Frame):
 
@@ -12,7 +12,19 @@ class Window(tk.Frame):
 		tk.Frame.__init__(self)
 		self.grid()
 		self.create_widgets()
-		
+	
+	def input_time_wrong_message_box(self):
+			messagebox.showinfo( "錯誤!", "結束日期早於開始日期")
+
+	def combine_func(self):
+		self.end_date_str_gain
+		if self.end_date_str.get() == "" or self.date_str.get() == "":
+			return
+		elif self.check_time(self.start_return_value.get(),self.end_return_value.get()) == 0:
+			self.input_time_wrong_message_box()
+		else:
+			return 
+	
 	def create_widgets(self):
 		f = tkFont.Font(size = 20, family = "Courier New")
 
@@ -47,27 +59,28 @@ class Window(tk.Frame):
 		self.date_str = tk.StringVar()
 		self.date = ttk.Entry(self, textvariable = self.date_str)
 		self.date.grid(row = 3, column = 0, columnspan = 5,sticky = 'ew')
+		self.start_return_value = ""
 
 		self.date_str_gain = lambda: [
 			self.date_str.set(self.date)
 			for self.date in [Calendar((500,500),'ur').selection()]
 			if self.date]
 		tk.Button(self, text = '開始日期', command = self.date_str_gain).grid(row = 3,column = 5, columnspan = 10, sticky = tk.W)
-		print(self.date_str.get())
-		# self.selected_start_time = Calendar().selection() #開始日期回傳值
+		
 
 		#結束日期
 		self.end_date_str = tk.StringVar()
 		self.end_date = ttk.Entry(self, textvariable = self.end_date_str)
 		self.end_date.grid(row = 3, column = 8, columnspan = 5,sticky = 'ew')
+		self.end_return_value = ""
 
 		self.end_date_str_gain = lambda: [
 			self.end_date_str.set(self.end_date)
 			for self.end_date in [Calendar((500,500),'ur').selection()]
 			if self.end_date]
-		tk.Button(self, text = '結束日期', command = self.end_date_str_gain).grid(row = 3,column = 13, columnspan = 10, sticky = 'W')
-		#self.selected_end_time = Calendar.selection() #結束日期回傳值
-
+		tk.Button(self, text = '結束日期', command = self.combine_func).grid(row = 3,column = 13, columnspan = 10, sticky = 'W')
+		
+		
 
 		self.btn1 = tk.Button(self, height=2, width=8, text="Search", command=self.clickBtn, font=f)
 		self.cvsMain = tk.Canvas(self, width = 800, height = 600, bg = "white")
@@ -80,8 +93,13 @@ class Window(tk.Frame):
 		self.btn1.grid(row=2, column=17, rowspan=2, sticky=tk.E+tk.W)
 		self.cvsMain.grid(row=5, column=0, columnspan=18, sticky= tk.NE + tk.SW)
 
-	#def check_time(self):
-
+	def check_time(self,start,end):  #比較結束時間是否小於開始時間
+		start_time = datetime.strptime(start,'%Y-%d-%b')
+		end_time = datetime.strptime(end,'%Y-%d-%b')
+		if start_time > end_time:
+			return 0
+		else:
+			return 1
 
 
 	def clickBtn(self): 
@@ -89,8 +107,12 @@ class Window(tk.Frame):
 		city_to_use = self.variable2.get()
 		start_time = self.date_str.get()
 		end_time = self.end_date_str.get()
-
-		print (country_to_use, city_to_use,start_time,end_time)
+		self.List = [0,0,0,0]
+		self.List[0] = country_to_use
+		self.List[1] = city_to_use
+		self.List[2] = start_time
+		self.List[3] = end_time
+		return self.List
 
 	def getValue(self):
 
@@ -121,5 +143,8 @@ class Window(tk.Frame):
 mywindow = Window()
 mywindow.master.title("KKDay+")
 
+#test print
+get = mywindow.clickBtn()
+print(get)
 
 mywindow.mainloop()

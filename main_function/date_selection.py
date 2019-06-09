@@ -302,6 +302,7 @@ def run_calendar(name):
     date = ttk.Entry(root, textvariable = date_str)
     date.grid(row = 0 , column = 10, columnspan = 10)
     #date.place(x = 0, y = 0, relx = 5/20, rely = 1/6, relwidth = 14/20, relheigh = 2/3)
+
     date_str_gain = lambda: [
         date_str.set(date)
         for date in [Calendar((), 'ur').selection()] #calendar(x,y)控制日曆位置
@@ -310,4 +311,5 @@ def run_calendar(name):
     root.mainloop()
 
 #run_calendar('開始日期')
+
 
