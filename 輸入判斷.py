@@ -20,7 +20,7 @@ for aline in csv:
     for kw in kwList:
         if kw in info:
             count += 1
-#走訪noList中不想要的關鍵字，若出現則開始比對下一筆行程            
+#走訪noList中不想要的關鍵字           
     for no in noList:
         if no in info:
             count -= 1
