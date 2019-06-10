@@ -147,7 +147,8 @@ class Window(tk.Frame):
 	
 	def pollution(self, city):
 		city = self.List[1]
-		pollution_state = run_pollution(city)
+		Pollu = Get_pollution()
+		P_state = Pollu.run_pollution(city)
 	
 		
 	
