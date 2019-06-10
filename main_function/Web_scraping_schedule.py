@@ -43,11 +43,13 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
                 result.append('連結：' + 'https://www.kkday.com/zh-tw/product/' + aline[fields[2]])
                 resultList.append(result)
 
-    if resultNum == 0:
-        print('查無符合的結果！')
-
-    for r in resultList:
-        print(r[0])
-        print(r[1])
-        print(r[3])
-        print()
+    if len(resultList) == 0:
+        answer = '查無符合的結果！'
+        return answer
+    else:
+        return resultList
+        # for r in resultList:
+        #     print(r[0])
+        #     print(r[1])
+        #     print(r[3])
+        #     print()
