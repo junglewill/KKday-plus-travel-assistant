@@ -14,7 +14,7 @@ def temperature(city_input, date1_input, date2_input):
 	city_path = city + '.csv'
 
 	#開啟溫度檔案
-	file =  '/Users/leepinghsun/Documents/GitHub/G21/main_function/氣溫csv/' + city_path
+	file =  '/Users/leepinghsun/Documents/GitHub/G21/main_function/氣溫csv/' + city_path  # need to change between computers
 
 	#每個月分的天數
 	month = [31,28,31,30,31,30,31,31,30,31,30,31]
@@ -36,14 +36,14 @@ def temperature(city_input, date1_input, date2_input):
 		
 	#找到那天的氣溫資料	
 	n = 0
-	with open(file, newline='') as csvFile:
+	with open(file, newline='', encoding='cp950') as csvFile:
 		#直接讀取：讀取 CSV 檔案內容
 		rows = csv.reader(csvFile)
 		# 迴圈輸出 每一列
 		for row in rows:
 			n += 1 
-			if day1 <= n <= day2 + 1:
+			if day1 + 1 <= n <= day2 + 1:
 				print("最高氣溫：" + str(row[1]))
 				print("最低氣溫：" + str(row[2]))
 
-temperature('香港', '20190919', '20190923')
+# temperature('香港', '20190919', '20190923')  sample input
