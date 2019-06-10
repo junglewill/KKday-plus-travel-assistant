@@ -33,17 +33,25 @@ def temperature(city_input, date1_input, date2_input):
 		day2 += month[i]
 
 	day2 += 10 * int(date2[6]) + int(date2[7])
-		
+	
+	
 	#找到那天的氣溫資料	
 	n = 0
+	
+	最低氣溫 = 100000
+	最高氣溫 = -100000	
 	with open(file, newline='', encoding='cp950') as csvFile:
 		#直接讀取：讀取 CSV 檔案內容
 		rows = csv.reader(csvFile)
 		# 迴圈輸出 每一列
 		for row in rows:
 			n += 1 
-			if day1 + 1 <= n <= day2 + 1:
-				print("最高氣溫：" + str(row[1]))
-				print("最低氣溫：" + str(row[2]))
+			if int(row[1][:-1]) >= 最高氣溫 :
+				最高氣溫 = int(row[1][:-1])
+			if int(row[2][:-1]) <= 最低氣溫 :
+				最低氣溫 = int(row[2][:-1])
+			
+	print("最高氣溫：" + str(最高氣溫) + "℃" )
+	print("最低氣溫：" + str(最低氣溫) + "℃" )
 
 # temperature('香港', '20190919', '20190923')  sample input
