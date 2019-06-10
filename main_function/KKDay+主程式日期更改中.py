@@ -8,13 +8,8 @@ from tkinter import messagebox
 from Web_scraping_currency import currency_function  # import function(country)
 # return nowout, past6out, lowest_day(list), lowest
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
-<<<<<<< HEAD
-from Web_scraping_pollution import Get_pollution  # run_pollution(city) => return [list] of pulluction notices
-=======
 # return highest_out, lowest_out
-from Web_scraping_pollution import Get_pollution  # import Class C = Class() data = C.run_pollution(city)
-# return noticeList
->>>>>>> 79fb456e1bd48e5f90f2ca680e4788309f0fb7a8
+from Web_scraping_pollution import Get_pollution  # run_pollution(city) => return [list] of pulluction notices
 from Web_scraping_safety import safety  # import function
 # return answer(not provided) or answerlist(a list)
 from Web_scraping_schedule import schedule # import function(kwlist, nolist, SelectCity)
@@ -97,14 +92,16 @@ class Window(tk.Frame):
 
 		self.btn1 = tk.Button(self, height=2, width=8, text="Search", command=self.clickBtn, font=f)
 		self.cvsMain = tk.Canvas(self, width = 800, height = 600, bg = "white")
+		# self.lbl = tk.Label(self.cvsMain, text=self.List)
 		
 		
 		self.droplist1.grid(row=0, column=0, columnspan=8,sticky=tk.E+tk.W)
 		self.droplist2.grid(row=0, column=8, columnspan=8,sticky=tk.E+tk.W)
 		self.txt1.grid(row=1, column=0, columnspan=16,sticky=tk.E+tk.W)
 		self.txt2.grid(row=2, column=0, columnspan=16,sticky=tk.E+tk.W)
-		self.btn1.grid(row=2, column=17, rowspan=2, sticky=tk.E+tk.W)
+		self.btn1.grid(row=2, column=17, rowspan=2, columnspan=6, sticky=tk.E+tk.W)
 		self.cvsMain.grid(row=5, column=0, columnspan=18, sticky= tk.NE + tk.SW)
+		# self.lbl.grid(row=6, column=0, columnspan=4, sticky=tk.E)
 
 	def check_time(self,start,end):  #比較結束時間是否小於開始時間
 		start_time = datetime.strptime(start,'%Y-%m-%d')
@@ -127,6 +124,12 @@ class Window(tk.Frame):
 		self.List[3] = end_time             #結束時間
 
 		print(self.List)       #test print
+		P_state = self.pollution(self.List[1])
+		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣狀況').grid(row=6, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[0]).grid(row=7, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p2 = tk.Label(self.cvsMain, text=P_state[1]).grid(row=8, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p3 = tk.Label(self.cvsMain, text=P_state[2]).grid(row=9, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3]).grid(row=10, column=0, columnspan=10, sticky=tk.W)
 
 		return self.List
 		
@@ -154,16 +157,24 @@ class Window(tk.Frame):
 		for country in countries:
 			menu.add_command(label=country, command=lambda country=country: self.variable2.set(country))
 	
+	#  below combine the web scraping with the GUI
 	def pollution(self, city):
 		city = self.List[1]
 		Pollu = Get_pollution()
 		P_state = Pollu.run_pollution(city)
+		print(P_state)
+		return P_state
+	
+	def currency(self):
+		city = self.List[1]
+		now , past6, lowestday, lowest = currency_function(city)
+
 	
 		
 	
 mywindow = Window()
 mywindow.master.title("KKDay+")
-
+#print(Window.pollution())
 
 
 
