@@ -93,6 +93,10 @@ class Window(tk.Frame):
 		self.cvsMain = tk.Canvas(self, width = 800, height = 600, bg = "white")
 		# self.lbl = tk.Label(self.cvsMain, text=self.List)
 		
+		self.text = tk.Text(self.cvsMain,width=40,font=("Symbol", 14))
+		self.text.insert(tk.INSERT,"天氣")
+
+		
 		
 		self.droplist1.grid(row=0, column=0, columnspan=8,sticky=tk.E+tk.W)
 		self.droplist2.grid(row=0, column=8, columnspan=8,sticky=tk.E+tk.W)
