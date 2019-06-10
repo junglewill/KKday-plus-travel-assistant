@@ -10,7 +10,7 @@ from Web_scraping_currency import Currency, currency_function  # import function
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
 # return highest_out, lowest_out
 from Web_scraping_pollution import Get_pollution  # run_pollution(city) => return [list] of pulluction notices
-#from Web_scraping_safety import safety  # import function
+from Web_scraping_safety import safety  # import function
 # return answer(not provided) or answerlist(a list)
 from Web_scraping_schedule import schedule # import function(kwlist, nolist, SelectCity)
 # return answer(not found) or resultList(a list)
@@ -125,22 +125,45 @@ class Window(tk.Frame):
 		self.List[1] = city_to_use          #城市
 		self.List[2] = start_time           #開始時間
 		self.List[3] = end_time             #結束時間
+		kw_list = self.txt1.get()
+		no_list = self.txt2.get()
 
 		print(self.List)       #test print
 		P_state = self.pollution(self.List[1])
 
-		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣狀況', borderwidth=1, relief="flat").grid(row=6, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[1], borderwidth=1, relief="flat").grid(row=8, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p2 = tk.Label(self.cvsMain, text=P_state[0], borderwidth=1, relief="flat").grid(row=7, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p3 = tk.Label(self.cvsMain, text=P_state[2], borderwidth=1, relief="flat").grid(row=9, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣品質', borderwidth=1, relief="flat").grid(row=6, column=0, columnspan=11, sticky=tk.W)
+		self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[1], borderwidth=1, relief="flat").grid(row=8, column=0, columnspan=11, sticky=tk.W)
+		self.lbl_p2 = tk.Label(self.cvsMain, text=P_state[0], borderwidth=1, relief="flat").grid(row=7, column=0, columnspan=11, sticky=tk.W)
+		self.lbl_p3 = tk.Label(self.cvsMain, text=P_state[2], borderwidth=1, relief="flat").grid(row=9, column=0, columnspan=11, sticky=tk.W)
+		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=0, columnspan=11, sticky=tk.W)
 
 		now , past6, lowestday, lowest = currency_function(self.List[0])
-		self.lbl_c1 = tk.Label(self.cvsMain, text=self.List[0] + '現在的匯率為： ' + str(now)).grid(row=6, column=12, columnspan=10, sticky=tk.W)
-		self.lbl_c2 = tk.Label(self.cvsMain, text=self.List[0] + '六個月前的匯率為： ' + str(past6)).grid(row=7, column=12, columnspan=10, sticky=tk.W)
-		self.lbl_c3 = tk.Label(self.cvsMain, text=self.List[0] + '六個月以來最低匯率為： ' + str(lowest)).grid(row=8, column=12, columnspan=10, sticky=tk.W)
-		return self.List
+		self.lbl_c = tk.Label(self.cvsMain, text='台幣匯率', borderwidth=1, relief="flat").grid(row=6, column=12, columnspan=11, sticky=tk.W)
+		self.lbl_c1 = tk.Label(self.cvsMain, text=self.List[0] + '現在的匯率為： ' + str(now), borderwidth=1, relief="flat").grid(row=7, column=12, columnspan=11, sticky=tk.W)
+		self.lbl_c2 = tk.Label(self.cvsMain, text=self.List[0] + '六個月前的匯率為： ' + str(past6), borderwidth=1, relief="flat").grid(row=8, column=12, columnspan=11, sticky=tk.W)
+		self.lbl_c3 = tk.Label(self.cvsMain, text=self.List[0] + '六個月以來最低匯率為： ' + str(lowest), borderwidth=1, relief="flat").grid(row=9, column=12, columnspan=11, sticky=tk.W)
+
+		highest, lowest = temperature(self.List[1], self.List[2], self.List[3])
+		self.lbl_t = tk.Label(self.cvsMain, text='去年同期氣溫', borderwidth=1, relief="flat").grid(row=6, column=24, columnspan=10, sticky=tk.W)
+		self.lbl_t1 = tk.Label(self.cvsMain, text=self.List[1] + '所選日期區間最高氣溫： ' + highest, borderwidth=1, relief="flat").grid(row=7, column=24, columnspan=10, sticky=tk.W)
+		self.lbl_t2 = tk.Label(self.cvsMain, text=self.List[1] + '所選日期區間最低氣溫： ' + lowest, borderwidth=1, relief="flat").grid(row=8, column=24, columnspan=10, sticky=tk.W)
+
+		safety_list = safety(self.List[0])
+		self.lbl_s = tk.Label(self.cvsMain, text='當前國家安全警示狀況', borderwidth=1, relief="flat").grid(row=6, column=35, columnspan=11, sticky=tk.W)
+		# self.lbl_s1 = tk.Label(self.cvsMain, text=safety_list[0], borderwidth=1, relief="flat").grid(row=7, column=35, columnspan=15, sticky=tk.W)
 		
+		for i in range(len(safety_list)):
+			try:
+				value = safety_list[i]
+				self.lbl_s2 = tk.Label(self.cvsMain, text=value, borderwidth=1, relief="flat").grid(row=7 + i, column=35, columnspan=15, sticky=tk.W)
+			except ValueError:
+				pass
+		# try:
+		# 	value2 = safety_list[2]
+		# 	self.lbl_s3 = tk.Label(self.cvsMain, text=P_state[2], borderwidth=1, relief="flat").grid(row=9, column=35, columnspan=15, sticky=tk.W)
+		# self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=35, columnspan=15, sticky=tk.W)
+		return self.List
+
 
 	def getValue(self):
 		pass		
@@ -170,7 +193,7 @@ class Window(tk.Frame):
 		city = self.List[1]
 		Pollu = Get_pollution()
 		P_state = Pollu.run_pollution(city)
-		print(P_state)
+		# print(P_state)
 		return P_state
 	
 	

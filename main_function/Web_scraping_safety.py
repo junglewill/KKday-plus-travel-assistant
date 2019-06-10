@@ -2,11 +2,15 @@
 # ssl._create_default_https_context = ssl._create_unverified_context
 
 import pandas as pd
-import html5lib
+import ssl
+from urllib import request
 
 def safety(country_input):
+    context = ssl._create_unverified_context()
     url = 'https://www.boca.gov.tw/sp-trwa-list-1.html'
-    table = pd.read_html(url, header=1)    # 讀入網站，將表格的第1行設定為header
+    response = request.urlopen(url, context=context)
+    html = response.read()
+    table = pd.read_html(html, header=1)    # 讀入網站，將表格的第1行設定為header
     df = pd.DataFrame(table[0])            # 第0張表格為東亞國家
 
 
@@ -45,9 +49,10 @@ def safety(country_input):
     """從第四張dataframe取出目標國家: 韓國、日本、泰國及新加坡"""
     df5 = df4.loc[ ['韓國', '日本', '泰國', '新加坡'], ['國家地區', '最新警示提醒'] ]
     
+    country_needed = country_input
     if country_needed == "香港":
         # print('沒有提供')
-        answer = '沒有提供警示資訊'
+        answer = ['沒有提供警示資訊']
         return answer
 
     else:
