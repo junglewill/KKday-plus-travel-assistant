@@ -5,7 +5,7 @@ import tkinter.font as tkFont
 from date_selection import Calendar  # import class
 from datetime import datetime
 from tkinter import messagebox
-from Web_scraping_currency import currency_function  # import function(country)
+from Web_scraping_currency import Currency, currency_function  # import function(country)
 # return nowout, past6out, lowest_day(list), lowest
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
 # return highest_out, lowest_out
@@ -125,12 +125,16 @@ class Window(tk.Frame):
 
 		print(self.List)       #test print
 		P_state = self.pollution(self.List[1])
-		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣狀況').grid(row=6, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[0]).grid(row=7, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p2 = tk.Label(self.cvsMain, text=P_state[1]).grid(row=8, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p3 = tk.Label(self.cvsMain, text=P_state[2]).grid(row=9, column=0, columnspan=10, sticky=tk.W)
-		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3]).grid(row=10, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣狀況', borderwidth=1, relief="flat").grid(row=6, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[1], borderwidth=1, relief="flat").grid(row=8, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p2 = tk.Label(self.cvsMain, text=P_state[0], borderwidth=1, relief="flat").grid(row=7, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p3 = tk.Label(self.cvsMain, text=P_state[2], borderwidth=1, relief="flat").grid(row=9, column=0, columnspan=10, sticky=tk.W)
+		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=0, columnspan=10, sticky=tk.W)
 
+		now , past6, lowestday, lowest = currency_function(self.List[1])
+		self.lbl.c1 = tk.Label(self.cvsMain, text=self.List[1] + '現在的匯率為： ' + now).grid(row=6, column=12, columnspan=10, sticky=tk.W)
+		self.lbl.c2 = tk.Label(self.cvsMain, text=self.List[1] + '六個月前的匯率為： ' + past6).grid(row=7, column=12, columnspan=10, sticky=tk.W)
+		self.lbl.c3 = tk.Label(self.cvsMain, text=self.List[1] + '六個月以來最低匯率為： ' + lowestday[0] + ' ' + lowest).grid(row=8, column=12, columnspan=10, sticky=tk.W)
 		return self.List
 		
 
@@ -165,9 +169,8 @@ class Window(tk.Frame):
 		print(P_state)
 		return P_state
 	
-	def currency(self):
-		city = self.List[1]
-		now , past6, lowestday, lowest = currency_function(city)
+	
+		
 
 	
 		
