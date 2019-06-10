@@ -45,15 +45,17 @@ def safety(country_input):
     df5 = df4.loc[ ['韓國', '日本', '泰國', '新加坡'], ['國家地區', '最新警示提醒'] ]
 
     country_needed = country_input
+    if country_needed == "香港":
+        print('沒有提供')
+    else:
+        for i in range(len(df5)):    
+            if df5.iloc[i]['國家地區'] == '日本 - 福島縣(第一核電廠半徑30公里內區域及計畫避難區域) Japan - Fukushima' and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
+                df5.iloc[i]['最新警示提醒'] = '福島地區 紅色警示-不宜前往，宜儘速離境；其餘地區 沒有警示'
+                continue
 
-    for i in range(len(df5)):    
-        if df5.iloc[i]['國家地區'] == '日本 - 福島縣(第一核電廠半徑30公里內區域及計畫避難區域) Japan - Fukushima' and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
-            df5.iloc[i]['最新警示提醒'] = '福島地區 紅色警示-不宜前往，宜儘速離境；其餘地區 沒有警示'
-            continue
+            if df5.iloc[i]['最新警示提醒'] == '灰色警示-提醒注意':
+                df5.iloc[i]['最新警示提醒'] = '沒有警示'
 
-        if df5.iloc[i]['最新警示提醒'] == '灰色警示-提醒注意':
-            df5.iloc[i]['最新警示提醒'] = '沒有警示'
-
-    for i in range(len(df5)):
-        if country_needed in df5.iloc[i]['國家地區']:
-            print(df5.iloc[i]['最新警示提醒'])
+        for i in range(len(df5)):
+            if country_needed in df5.iloc[i]['國家地區']:
+                print(df5.iloc[i]['最新警示提醒'])
