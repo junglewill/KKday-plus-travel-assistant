@@ -7,7 +7,7 @@ from datetime import datetime
 from tkinter import messagebox
 from Web_scraping_currency import currency_function  # import function(country)
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
-from Web_scraping_pollution import Get_pollution  # import Class C = Class() data = C.choose_city(city) C.print_poll(data)
+from Web_scraping_pollution import Get_pollution  # run_pollution(city) => return [list] of pulluction notices
 from Web_scraping_safety import safety  # import function
 from Web_scraping_schedule import schedule # import function(kwlist, nolist, SelectCity)
 
@@ -112,10 +112,10 @@ class Window(tk.Frame):
 		start_time = self.date_str.get()
 		end_time = self.end_date_str.get()
 		self.List = [0,0,0,0]
-		self.List[0] = country_to_use
-		self.List[1] = city_to_use
-		self.List[2] = start_time
-		self.List[3] = end_time
+		self.List[0] = country_to_use       #國家
+		self.List[1] = city_to_use          #城市
+		self.List[2] = start_time           #開始時間
+		self.List[3] = end_time             #結束時間
 
 		print(self.List)       #test print
 
@@ -144,6 +144,10 @@ class Window(tk.Frame):
 		menu.delete(0, 'end')
 		for country in countries:
 			menu.add_command(label=country, command=lambda country=country: self.variable2.set(country))
+	
+	def pollution(self, city):
+		city = self.List[1]
+		pollution_state = run_pollution(city)
 	
 		
 	
