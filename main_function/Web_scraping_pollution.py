@@ -54,12 +54,12 @@ class Get_pollution:
     def print_poll(self,city,data):
 
         #print(city)
-        print("當下最嚴重污染物為："+data['data']['dominentpol'])
+        first = str("當下最嚴重污染物為："+data['data']['dominentpol'])
         #print("一氧化碳："+str(data['data']['iaqi']['co']['v'])+" ppm")
         #print("二氧化氮："+str(data['data']['iaqi']['no2']['v'])+" ppm")
         #print("臭氧："+str(data['data']['iaqi']['o3']['v'])+" ppm")
-        print("pm10："+str(data['data']['iaqi']['pm10']['v'])+" ppm")
-        print("pm25："+str(data['data']['iaqi']['pm25']['v'])+" ppm")
+        second = str("pm10："+str(data['data']['iaqi']['pm10']['v'])+" ppm")
+        third = str("pm25："+str(data['data']['iaqi']['pm25']['v'])+" ppm")
 
         dominant_pollutant = data['data']['dominentpol']
         air_condition = 0
@@ -82,12 +82,19 @@ class Get_pollution:
         else:
             air_condition_tag = '空氣嚴重污染，健康人出現明顯症狀'
         
-        print(air_condition_tag)
+        notice_list = []
+        notice_list.append(first)
+        notice_list.append(second)
+        notice_list.append(third)
+        notice_list.append(air_condition_tag)
+
+        return notice_list
         #get_city = data['name']    
 
-    def run_pollution(self):
-
-        city_chosen = str(input())
+    def run_pollution(self,city):
+        city_chosen = city
         data = self.choose_city(city_chosen)
-        self.print_poll(city_chosen,data)
+        return self.print_poll(city_chosen,data)
+
+
 
