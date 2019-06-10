@@ -41,13 +41,13 @@ class Window(tk.Frame):
                      '韓國': ['釜山', '首爾'],
 					 '香港': ['香港'],
 					 '新加坡': ['新加坡']}
-		self.variable1 = tk.StringVar(self)
-		self.variable2 = tk.StringVar(self)
+		self.variable1 = tk.StringVar()
+		self.variable2 = tk.StringVar()
 		self.variable1.set('選擇國家')
 		self.variable2.set('選擇城市')
 		self.variable1.trace('w', self.updateoptions)
-		self.droplist1 = tk.OptionMenu(self, self.variable1, *self.dict.keys(), command=self.getValue)
-		self.droplist2 = tk.OptionMenu(self, self.variable2, '', command=self.getValue)
+		self.droplist1 = tk.OptionMenu(self, self.variable1, *self.dict.keys(), command=self.getValue())
+		self.droplist2 = tk.OptionMenu(self, self.variable2, '', command=self.getValue())
 
 		default1 = "要的行程"
 		self.txt1 = tk.Entry(self, bd=1)
@@ -67,7 +67,6 @@ class Window(tk.Frame):
 		self.date_str = tk.StringVar()
 		self.date = ttk.Entry(self, textvariable = self.date_str)
 		self.date.grid(row = 3, column = 0, columnspan = 5,sticky = 'ew')
-
 		self.date_str_gain = lambda: [
 			self.date_str.set(self.date)
 			for self.date in [Calendar((500,500),'ur').selection()]
@@ -79,8 +78,6 @@ class Window(tk.Frame):
 		self.end_date_str = tk.StringVar()
 		self.end_date = ttk.Entry(self, textvariable = self.end_date_str)
 		self.end_date.grid(row = 3, column = 8, columnspan = 5,sticky = 'ew')
-
-
 		self.end_date_str_gain = lambda: [
 			self.end_date_str.set(self.end_date)
 			for self.end_date in [Calendar((500,500),'ur').selection()]
@@ -119,10 +116,13 @@ class Window(tk.Frame):
 		self.List[1] = city_to_use
 		self.List[2] = start_time
 		self.List[3] = end_time
+
+		print(self.List)       #test print
+
 		return self.List
+		
 
 	def getValue(self):
-
 		pass		
 
 
@@ -150,8 +150,7 @@ class Window(tk.Frame):
 mywindow = Window()
 mywindow.master.title("KKDay+")
 
-#test print
-get = mywindow.clickBtn()
-print(get)
+
+
 
 mywindow.mainloop()
