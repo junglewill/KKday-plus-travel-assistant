@@ -2,9 +2,14 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 import tkinter.font as tkFont
-from date_selection import Calendar
+from date_selection import Calendar  # import class
 from datetime import datetime
 from tkinter import messagebox
+from Web_scraping_currency import currency_function  # import function(country)
+from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
+from Web_scraping_pollution import Get_pollution  # import Class C = Class() data = C.choose_city(city) C.print_poll(data)
+from Web_scraping_safety import safety  # import function
+from Web_scraping_schedule import schedule # import function(kwlist, nolist, SelectCity)
 
 class Window(tk.Frame):
 

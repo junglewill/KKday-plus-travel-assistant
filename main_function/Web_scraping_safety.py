@@ -45,6 +45,7 @@ def safety(country_input):
     df5 = df4.loc[ ['韓國', '日本', '泰國', '新加坡'], ['國家地區', '最新警示提醒'] ]
 
     country_needed = country_input
+    
     if country_needed == "香港":
         print('沒有提供')
     else:
