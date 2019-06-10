@@ -3,6 +3,7 @@ from io import BytesIO
 from lxml import etree
 from six import u
 from six.moves.urllib import request
+import ssl
 
 class Currency():
     __CURRENT_QUOTE_URL = 'http://rate.bot.com.tw/xrt?Lang=zh-TW'
@@ -11,7 +12,8 @@ class Currency():
 
 
     def __parse_tree(self, url):
-        contents = request.urlopen(url).read()
+        context = ssl._create_unverified_context()
+        contents = request.urlopen(url, context=context).read()
         
         return etree.parse(BytesIO(contents), etree.HTMLParser())
         

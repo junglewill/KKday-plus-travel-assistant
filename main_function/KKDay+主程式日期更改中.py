@@ -136,9 +136,9 @@ class Window(tk.Frame):
 		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=0, columnspan=10, sticky=tk.W)
 
 		now , past6, lowestday, lowest = currency_function(self.List[0])
-		self.lbl.c1 = tk.Label(self.cvsMain, text=self.List[1] + '現在的匯率為： ' + now).grid(row=6, column=12, columnspan=10, sticky=tk.W)
-		self.lbl.c2 = tk.Label(self.cvsMain, text=self.List[1] + '六個月前的匯率為： ' + past6).grid(row=7, column=12, columnspan=10, sticky=tk.W)
-		self.lbl.c3 = tk.Label(self.cvsMain, text=self.List[1] + '六個月以來最低匯率為： ' + lowestday[0] + ' ' + lowest).grid(row=8, column=12, columnspan=10, sticky=tk.W)
+		self.lbl_c1 = tk.Label(self.cvsMain, text=self.List[0] + '現在的匯率為： ' + str(now)).grid(row=6, column=12, columnspan=10, sticky=tk.W)
+		self.lbl_c2 = tk.Label(self.cvsMain, text=self.List[0] + '六個月前的匯率為： ' + str(past6)).grid(row=7, column=12, columnspan=10, sticky=tk.W)
+		self.lbl_c3 = tk.Label(self.cvsMain, text=self.List[0] + '六個月以來最低匯率為： ' + str(lowest)).grid(row=8, column=12, columnspan=10, sticky=tk.W)
 		return self.List
 		
 
