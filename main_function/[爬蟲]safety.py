@@ -2,6 +2,7 @@
 # ssl._create_default_https_context = ssl._create_unverified_context
 
 import pandas as pd
+import html5lib
 
 url = 'https://www.boca.gov.tw/sp-trwa-list-1.html'
 table = pd.read_html(url, header=1)    # 讀入網站，將表格的第1行設定為header
@@ -43,6 +44,8 @@ df4 = df3.set_index( '國家(中文)' )
 """輸出目標國家，並匯出成csv"""
 df5 = df4.loc[ ['韓國', '日本', '泰國', '新加坡'], ['國家地區', '最新警示提醒'] ]
 
+country_needed = input()
+
 for i in range(len(df5)):    
     if df5.iloc[i]['國家地區'] == '日本 - 福島縣(第一核電廠半徑30公里內區域及計畫避難區域) Japan - Fukushima' and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
         df5.iloc[i]['最新警示提醒'] = '福島地區 紅色警示-不宜前往，宜儘速離境；其餘地區 沒有警示'
@@ -51,4 +54,5 @@ for i in range(len(df5)):
     if df5.iloc[i]['最新警示提醒'] == '灰色警示-提醒注意':
         df5.iloc[i]['最新警示提醒'] = '沒有警示'
 
-df5.to_csv('safety_new.csv')
+if df5['國家(中文)'] == country_needed:
+    print(df5['最新警示提醒'])
