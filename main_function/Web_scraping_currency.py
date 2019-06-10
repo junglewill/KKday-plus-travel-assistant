@@ -121,9 +121,11 @@ def currency_function(country_input):
             break
 
     nowadays = C.now(country_eng)  # 印出現在匯率資料
-    print(country + '現在的匯率為：' , nowadays[2])
+    nowout = nowadays[2]
+    # print(country + '現在的匯率為：' , nowadays[2])
     past_6month = C.past_six_month(country_eng)  # 取得六個月內所有匯率收盤資料
-    print(country + '六個月前的匯率為：', past_6month[-1][2])
+    past6out = past_6month[-1][2]
+    # print(country + '六個月前的匯率為：', past_6month[-1][2])
 
     lowest = 10000
     lowest_day = []
@@ -135,7 +137,9 @@ def currency_function(country_input):
         elif float(i[2].encode().decode()) == lowest:
             lowest_day.append(i)
 
-    print(country + '六個月以來的最低匯率為：', end=' ')
-    for i in lowest_day:
-        print(i[0], end=' ')
-    print(lowest)
+    # print(country + '六個月以來的最低匯率為：', end=' ')
+    # for i in lowest_day:
+    #     print(i[0], end=' ')
+    # print(lowest)
+
+    return nowout, past6out, lowest_day, lowest

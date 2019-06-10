@@ -6,10 +6,19 @@ from date_selection import Calendar  # import class
 from datetime import datetime
 from tkinter import messagebox
 from Web_scraping_currency import currency_function  # import function(country)
+# return nowout, past6out, lowest_day(list), lowest
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
+<<<<<<< HEAD
 from Web_scraping_pollution import Get_pollution  # run_pollution(city) => return [list] of pulluction notices
+=======
+# return highest_out, lowest_out
+from Web_scraping_pollution import Get_pollution  # import Class C = Class() data = C.run_pollution(city)
+# return noticeList
+>>>>>>> 79fb456e1bd48e5f90f2ca680e4788309f0fb7a8
 from Web_scraping_safety import safety  # import function
+# return answer(not provided) or answerlist(a list)
 from Web_scraping_schedule import schedule # import function(kwlist, nolist, SelectCity)
+# return answer(not found) or resultList(a list)
 
 class Window(tk.Frame):
 

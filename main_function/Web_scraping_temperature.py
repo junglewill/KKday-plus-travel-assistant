@@ -52,8 +52,11 @@ def temperature(city_input, date1_input, date2_input):
 				if int(row[2][:-1]) <= 最低氣溫 :
 					最低氣溫 = int(row[2][:-1])
 			
-	print("最高氣溫：" + str(最高氣溫) + "℃" )
-	print("最低氣溫：" + str(最低氣溫) + "℃" )
+	# print("最高氣溫：" + str(最高氣溫) + "℃" )
+	# print("最低氣溫：" + str(最低氣溫) + "℃" )
+	highest_out = str(最高氣溫) + '℃'
+	lowest_out = str(最低氣溫) + '℃'
+	return highest_out, lowest_out
 
 # sample input
 # temperature('香港', '20190919', '20190923')  

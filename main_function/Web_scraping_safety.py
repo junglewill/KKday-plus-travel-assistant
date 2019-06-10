@@ -2,6 +2,7 @@
 # ssl._create_default_https_context = ssl._create_unverified_context
 
 import pandas as pd
+import html5lib
 
 def safety(country_input):
     url = 'https://www.boca.gov.tw/sp-trwa-list-1.html'
@@ -41,22 +42,30 @@ def safety(country_input):
     df4 = df3.set_index( '國家(中文)' )
 
 
-    """輸出目標國家，並匯出成csv"""
+    """從第四張dataframe取出目標國家: 韓國、日本、泰國及新加坡"""
     df5 = df4.loc[ ['韓國', '日本', '泰國', '新加坡'], ['國家地區', '最新警示提醒'] ]
-
-    country_needed = country_input
     
     if country_needed == "香港":
-        print('沒有提供')
+        # print('沒有提供')
+        answer = '沒有提供警示資訊'
+        return answer
+
     else:
+        # 整理dataframe內的「最新警示提醒」欄位的資料，將警示分級的內容做簡單的處理
         for i in range(len(df5)):    
-            if df5.iloc[i]['國家地區'] == '日本 - 福島縣(第一核電廠半徑30公里內區域及計畫避難區域) Japan - Fukushima' and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
-                df5.iloc[i]['最新警示提醒'] = '福島地區 紅色警示-不宜前往，宜儘速離境；其餘地區 沒有警示'
+            if '福島' in df5.iloc[i]['國家地區'] and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
+                df5.iloc[i]['最新警示提醒'] = '福島地區：紅色警示，不宜前往，宜儘速離境\n其餘地區：沒有警示，為安全地區'
                 continue
-
             if df5.iloc[i]['最新警示提醒'] == '灰色警示-提醒注意':
-                df5.iloc[i]['最新警示提醒'] = '沒有警示'
+                df5.iloc[i]['最新警示提醒'] = '沒有警示，為安全地區'
 
+        answer_list = []
         for i in range(len(df5)):
             if country_needed in df5.iloc[i]['國家地區']:
-                print(df5.iloc[i]['最新警示提醒'])
+                # print(df5.iloc[i]['最新警示提醒'])
+                answer_list.append(df5.iloc[i]['最新警示提醒'])
+        return answer_list
+
+# test
+# safety('日本')
+
