@@ -14,7 +14,7 @@ def temperature(city_input, date1_input, date2_input):
 	city_path = city + '.csv'
 
 	#開啟溫度檔案
-	file =  '氣溫csv/' + city_path
+	file =  '/Users/leepinghsun/Documents/GitHub/G21/main_function/氣溫csv/' + city_path
 
 	#每個月分的天數
 	month = [31,28,31,30,31,30,31,31,30,31,30,31]
@@ -46,4 +46,4 @@ def temperature(city_input, date1_input, date2_input):
 				print("最高氣溫：" + str(row[1]))
 				print("最低氣溫：" + str(row[2]))
 
-temperature('曼谷', '20190919', '20190923')
+temperature('香港', '20190919', '20190923')
