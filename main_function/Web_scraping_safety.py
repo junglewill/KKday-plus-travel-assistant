@@ -41,22 +41,24 @@ def safety(country_input):
     df4 = df3.set_index( '國家(中文)' )
 
 
-    """輸出目標國家，並匯出成csv"""
+    """從第四張dataframe取出目標國家: 韓國、日本、泰國及新加坡"""
     df5 = df4.loc[ ['韓國', '日本', '泰國', '新加坡'], ['國家地區', '最新警示提醒'] ]
-
-    country_needed = country_input
     
-    if country_needed == "香港":
-        print('沒有提供')
+    # 由於外交部網站沒有提供香港的資訊，故直接印出「沒有提供」
+    if country_input == "香港":
+        print('沒有提供警示資訊')
     else:
+        # 整理dataframe內的「最新警示提醒」欄位的資料，將警示分級的內容做簡單的處理
         for i in range(len(df5)):    
-            if df5.iloc[i]['國家地區'] == '日本 - 福島縣(第一核電廠半徑30公里內區域及計畫避難區域) Japan - Fukushima' and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
-                df5.iloc[i]['最新警示提醒'] = '福島地區 紅色警示-不宜前往，宜儘速離境；其餘地區 沒有警示'
+            if '福島' in df5.iloc[i]['國家地區'] and df5.iloc[i]['最新警示提醒'] == '紅色警示-不宜前往，宜儘速離境':
+                df5.iloc[i]['最新警示提醒'] = '福島地區：紅色警示，不宜前往，宜儘速離境\n其餘地區：沒有警示，為安全地區'
                 continue
-
             if df5.iloc[i]['最新警示提醒'] == '灰色警示-提醒注意':
-                df5.iloc[i]['最新警示提醒'] = '沒有警示'
-
+                df5.iloc[i]['最新警示提醒'] = '沒有警示，為安全地區'
+        
+        # 印出「最新警示提醒」資訊
         for i in range(len(df5)):
-            if country_needed in df5.iloc[i]['國家地區']:
+            if country_input in df5.iloc[i]['國家地區']:
                 print(df5.iloc[i]['最新警示提醒'])
+                
+# safety('泰國')
