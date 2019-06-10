@@ -10,7 +10,7 @@ from Web_scraping_currency import Currency, currency_function  # import function
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
 # return highest_out, lowest_out
 from Web_scraping_pollution import Get_pollution  # run_pollution(city) => return [list] of pulluction notices
-from Web_scraping_safety import safety  # import function
+#from Web_scraping_safety import safety  # import function
 # return answer(not provided) or answerlist(a list)
 from Web_scraping_schedule import schedule # import function(kwlist, nolist, SelectCity)
 # return answer(not found) or resultList(a list)
@@ -32,7 +32,6 @@ class Window(tk.Frame):
 		elif self.check_time(self.date_str.get(),self.end_date_str.get()) == 0:
 			self.input_time_wrong_message_box()
 			self.combine_func()
-			
 		else:
 			return 
 		
@@ -125,13 +124,14 @@ class Window(tk.Frame):
 
 		print(self.List)       #test print
 		P_state = self.pollution(self.List[1])
+
 		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣狀況', borderwidth=1, relief="flat").grid(row=6, column=0, columnspan=10, sticky=tk.W)
 		self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[1], borderwidth=1, relief="flat").grid(row=8, column=0, columnspan=10, sticky=tk.W)
 		self.lbl_p2 = tk.Label(self.cvsMain, text=P_state[0], borderwidth=1, relief="flat").grid(row=7, column=0, columnspan=10, sticky=tk.W)
 		self.lbl_p3 = tk.Label(self.cvsMain, text=P_state[2], borderwidth=1, relief="flat").grid(row=9, column=0, columnspan=10, sticky=tk.W)
 		self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=0, columnspan=10, sticky=tk.W)
 
-		now , past6, lowestday, lowest = currency_function(self.List[1])
+		now , past6, lowestday, lowest = currency_function(self.List[0])
 		self.lbl.c1 = tk.Label(self.cvsMain, text=self.List[1] + '現在的匯率為： ' + now).grid(row=6, column=12, columnspan=10, sticky=tk.W)
 		self.lbl.c2 = tk.Label(self.cvsMain, text=self.List[1] + '六個月前的匯率為： ' + past6).grid(row=7, column=12, columnspan=10, sticky=tk.W)
 		self.lbl.c3 = tk.Label(self.cvsMain, text=self.List[1] + '六個月以來最低匯率為： ' + lowestday[0] + ' ' + lowest).grid(row=8, column=12, columnspan=10, sticky=tk.W)

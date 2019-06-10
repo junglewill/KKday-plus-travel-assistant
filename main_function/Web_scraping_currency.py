@@ -115,6 +115,7 @@ C = Currency()
 def currency_function(country_input):
     country_dict = {'韓國': 'KRW', '日本': 'JPY', '泰國': 'THB', '新加坡': 'SGD', '香港': 'HKD'}
     country = country_input  
+    country_eng = ''
     for key in country_dict:
         if country == key:
             country_eng = country_dict[key]
