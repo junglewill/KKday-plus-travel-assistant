@@ -10,7 +10,9 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
 
     #輸入關鍵字(kw)，用空格分隔後存進kwList
     kwList = kwList_input.split()
+    # print(kwList)
     noList = nolist_input.split()
+    # print(noList)
     SelectCity = SelectCity_input
 
     #SelectCity = '沖繩' #測試時打開
@@ -21,6 +23,7 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
         if SelectCity == aline[fields[1]]: 
             count = 0 #檢查找到的kw數
             info = aline[fields[5]]
+
         #走訪kwList中的關鍵字，查看是否皆出現在某行程的'info'中
             if len(kwList) == 0 and len(noList) == 0:
                 count = len(kwList)
@@ -29,7 +32,7 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
                 for kw in kwList:
                     if kw in info:
                         count += 1
-            #走訪noList中不想要的關鍵字           
+            #走訪noList中不想要的關鍵字        
                 for no in noList:
                     if no in info:
                         count -= 1
