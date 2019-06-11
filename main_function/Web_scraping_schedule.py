@@ -5,8 +5,8 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
 
     fn = '/Users/leepinghsun/Documents/GitHub/G21/爬蟲們/kkday_csv/tample.csv'
     fh = open(fn, 'r', newline = '', encoding = 'utf-8')
-    csv = csv.DictReader(fh)
-    fields = csv.fieldnames
+    csv1 = csv.DictReader(fh)
+    fields = csv1.fieldnames
 
     #輸入關鍵字(kw)，用空格分隔後存進kwList
     kwList = kwList_input.split()
@@ -17,7 +17,7 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
     resultNum = 0 #找到幾筆符合結果
     resultList = [] #存放符合的結果
     #走訪ouput.csv的info
-    for aline in csv:
+    for aline in csv1:
         if SelectCity == aline[fields[1]]: 
             count = 0 #檢查找到的kw數
             info = aline[fields[5]]

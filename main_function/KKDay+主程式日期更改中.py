@@ -120,15 +120,17 @@ class Window(tk.Frame):
 		city_to_use = self.variable2.get()
 		start_time = self.date_str.get()
 		end_time = self.end_date_str.get()
-		self.List = [0,0,0,0]
+		kw_list = self.txt1.get()
+		no_list = self.txt2.get()
+		self.List = [0,0,0,0,0,0]
 		self.List[0] = country_to_use       #國家
 		self.List[1] = city_to_use          #城市
 		self.List[2] = start_time           #開始時間
 		self.List[3] = end_time             #結束時間
-		kw_list = self.txt1.get()
-		no_list = self.txt2.get()
+		self.List[4] = kw_list
+		self.List[5] = no_list
 
-		print(self.List)       #test print
+		# print(self.List)       #test print
 		P_state = self.pollution(self.List[1])
 
 		self.lbl_p = tk.Label(self.cvsMain, text='當前空氣品質', borderwidth=1, relief="flat").grid(row=6, column=0, columnspan=11, sticky=tk.W)
@@ -162,6 +164,17 @@ class Window(tk.Frame):
 		# 	value2 = safety_list[2]
 		# 	self.lbl_s3 = tk.Label(self.cvsMain, text=P_state[2], borderwidth=1, relief="flat").grid(row=9, column=35, columnspan=15, sticky=tk.W)
 		# self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=35, columnspan=15, sticky=tk.W)
+
+		schedule_list = schedule(self.List[4], self.List[5], self.List[1])
+		self.lbl_sch = tk.Label(self.cvsMain, text='推薦行程', borderwidth=1, relief="flat").grid(row=11, column=0, columnspan=50, sticky=tk.W)
+		if isinstance(schedule_list, list):
+			for i in range(len(schedule_list)):
+				self.lbl_sch1 = tk.Label(self.cvsMain, text=schedule_list[i][0], borderwidth=1, relief="flat").grid(row=12 + (3*i), column=0, columnspan=50, sticky=tk.W)
+				self.lbl_sch2 = tk.Label(self.cvsMain, text=schedule_list[i][1], borderwidth=1, relief="flat").grid(row=13 + (3*i), column=0, columnspan=50, sticky=tk.W)
+				self.lbl_sch3 = tk.Label(self.cvsMain, text=schedule_list[i][3], borderwidth=1, relief="flat").grid(row=14 + (3*i), column=0, columnspan=50, sticky=tk.W)
+				self.lbl_sch4 = tk.Label(self.cvsMain, text='', borderwidth=1, relief="flat").grid(row=15 + (3*i), column=0, columnspan=50, sticky=tk.W)
+		else:
+			self.lbl_sch5 = tk.Label(self.cvsMain, text=schedule_list, borderwidth=1, relief="flat").grid(row=12, column=0, columnspan=50, sticky=tk.W)
 		return self.List
 
 

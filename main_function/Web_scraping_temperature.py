@@ -23,16 +23,16 @@ def temperature(city_input, date1_input, date2_input):
 	day1 = 0
 	day2 = 0
 		
-	for i in range(10 * int(date1[4]) + int(date1[5])-1) :
+	for i in range(10 * int(date1[5]) + int(date1[6])-1) :
 		day1 += month[i]
 
-	day1 += 10 * int(date1[6]) + int(date1[7])
+	day1 += 10 * int(date1[8]) + int(date1[9])
 
 
-	for i in range(10 * int(date2[4]) + int(date2[5])-1) :
+	for i in range(10 * int(date2[5]) + int(date2[6])-1) :
 		day2 += month[i]
 
-	day2 += 10 * int(date2[6]) + int(date2[7])
+	day2 += 10 * int(date2[8]) + int(date2[9])
 	
 	
 	#找到那天的氣溫資料	
