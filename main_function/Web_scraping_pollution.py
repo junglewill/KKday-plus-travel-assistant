@@ -54,12 +54,14 @@ class Get_pollution:
     def print_poll(self,city,data):
 
         #print(city)
-        first = str("當下最嚴重污染物為："+data['data']['dominentpol'])
+        temp_dominentpool = str(data['data']['dominentpol'])
+        temp_dominentpool = temp_dominentpool[:1]+"."+temp_dominentpool[1:]
+        first = str("當下最嚴重污染物為："+temp_dominentpool)
         #print("一氧化碳："+str(data['data']['iaqi']['co']['v'])+" ppm")
         #print("二氧化氮："+str(data['data']['iaqi']['no2']['v'])+" ppm")
         #print("臭氧："+str(data['data']['iaqi']['o3']['v'])+" ppm")
         second = str("pm10："+str(data['data']['iaqi']['pm10']['v'])+" ppm")
-        third = str("pm25："+str(data['data']['iaqi']['pm25']['v'])+" ppm")
+        third = str("pm2.5："+str(data['data']['iaqi']['pm25']['v'])+" ppm")
 
         dominant_pollutant = data['data']['dominentpol']
         air_condition = 0
