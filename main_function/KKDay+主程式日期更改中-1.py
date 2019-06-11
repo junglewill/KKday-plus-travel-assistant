@@ -178,7 +178,11 @@ class Window(tk.Frame):
 		for i in range(len(safety_list)):
 			try:
 				value = safety_list[i]
-				self.cvsMain.create_text(600,195+20*i,fill="white",font="Times 10 bold", text=value)
+				if len(value) > 20 :
+					self.cvsMain.create_text(600,195,fill="white",font="Times 10 bold", text=value[:20])
+					self.cvsMain.create_text(600,215,fill="white",font="Times 10 bold", text=value[21:])
+				else:
+					self.cvsMain.create_text(600,195+20*i,fill="white",font="Times 10 bold", text=value)
 				#self.lbl_s2 = tk.Label(self.cvsMain, text=value, borderwidth=1, relief="flat").grid(row=7 + i, column=35, columnspan=15, sticky=tk.W)
 			except ValueError:
 				pass
