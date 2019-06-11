@@ -5,6 +5,7 @@ import tkinter.font as tkFont
 from date_selection import Calendar  # import class
 from datetime import datetime
 from tkinter import messagebox
+from tkinter import scrolledtext
 from Web_scraping_currency import Currency, currency_function  # import function(country)
 # return nowout, past6out, lowest_day(list), lowest
 from Web_scraping_temperature import temperature  # import function(city_input, date1_input, date2_input)
@@ -91,8 +92,8 @@ class Window(tk.Frame):
 
 		self.btn1 = tk.Button(self, height=2, width=8, text="Search", command=self.clickBtn, font=f)
 		self.cvsMain = tk.Canvas(self, width = 800, height = 600, bg = "white")
-		# self.lbl = tk.Label(self.cvsMain, text=self.List)
-		
+
+
 		self.text = tk.Text(self.cvsMain,width=40,font=("Symbol", 14))
 		self.text.insert(tk.INSERT,"天氣")
 

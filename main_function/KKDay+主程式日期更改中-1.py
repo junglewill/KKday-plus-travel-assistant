@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-from PIL import Image, ImageTk
-import os
-from tkinter import scrolledtext
 import tkinter.font as tkFont
 from date_selection import Calendar  # import class
 from datetime import datetime
@@ -41,7 +38,7 @@ class Window(tk.Frame):
 		
 	
 	def create_widgets(self):
-		f = tkFont.Font(size = 20, family = "Courier New")
+		f = tkFont.Font(size = 20, family = "Song")
 
 		self.dict = {'泰國': ['芭達雅', '普吉島', '曼谷'],
                      '日本': ['東京', '沖繩', '大阪', '京都'],
@@ -95,8 +92,6 @@ class Window(tk.Frame):
 
 		self.btn1 = tk.Button(self, height=2, width=8, text="Search", command=self.clickBtn, font=f)
 		self.cvsMain = tk.Canvas(self, width = 800, height = 600, bg = "white")
-	
-		
 		# self.lbl = tk.Label(self.cvsMain, text=self.List)
 		
 		self.text = tk.Text(self.cvsMain,width=40,font=("Symbol", 14))
@@ -108,11 +103,10 @@ class Window(tk.Frame):
 		self.droplist2.grid(row=0, column=8, columnspan=8,sticky=tk.E+tk.W)
 		self.txt1.grid(row=1, column=0, columnspan=16,sticky=tk.E+tk.W)
 		self.txt2.grid(row=2, column=0, columnspan=16,sticky=tk.E+tk.W)
-		self.btn1.grid(row=2, column=17, rowspan=2, columnspan=6, sticky=tk.E+tk.W)
+		self.btn1.grid(row=3, column=17, rowspan=2, columnspan=6, sticky=tk.E+tk.W)
 		self.cvsMain.grid(row=5, column=0, columnspan=18, sticky= tk.NE + tk.SW)
 		# self.lbl.grid(row=6, column=0, columnspan=4, sticky=tk.E)
 		
-		#self.Logo = os.path.join(os.path.dirname())
 	
 
 	def check_time(self,start,end):  #比較結束時間是否小於開始時間
@@ -136,24 +130,18 @@ class Window(tk.Frame):
 		self.List[1] = city_to_use          #城市
 		self.List[2] = start_time           #開始時間
 		self.List[3] = end_time             #結束時間
-		if kw_list == '要的行程':
-			self.List[4] = ''
-		else:
-			self.List[4] = kw_list
-		if no_list == '不要的行程':
-			self.List[5] = ''
-		else:
-			self.List[5] = no_list
+		self.List[4] = kw_list
+		self.List[5] = no_list
 
-		print(self.List)       #test print
+		# print(self.List)       #test print
 		P_state = self.pollution(self.List[1])
 		
 		self.cvsMain.create_rectangle(20,30,390,120, outline='darkcyan',fill='darkcyan')
 		self.cvsMain.create_text(205,20,fill="darkcyan",font="Times 15 bold", text="當前空氣品質")
-		self.cvsMain.create_text(30,45,fill="white",font="Times 10 bold", text=P_state[0], anchor=W)
-		self.cvsMain.create_text(30,65,fill="white",font="Times 10 bold", text=P_state[1], anchor=W)
-		self.cvsMain.create_text(30,85,fill="white",font="Times 10 bold", text=P_state[2], anchor=W)
-		self.cvsMain.create_text(30,105,fill="white",font="Times 10 bold", text=P_state[3], anchor=W)
+		self.cvsMain.create_text(205,45,fill="white",font="Times 10 bold", text=P_state[0])
+		self.cvsMain.create_text(205,65,fill="white",font="Times 10 bold", text=P_state[1])
+		self.cvsMain.create_text(205,85,fill="white",font="Times 10 bold", text=P_state[2])
+		self.cvsMain.create_text(205,105,fill="white",font="Times 10 bold", text=P_state[3])
 
 		#self.lbl_p = tk.Label(self.cvsMain, text='當前空氣品質', borderwidth=1, relief="flat", fg = "coral").grid(row=6, column=0, columnspan=11, sticky=tk.W)
 		#self.lbl_p1 = tk.Label(self.cvsMain, text=P_state[1], borderwidth=1, relief="flat", fg = "coral").grid(row=8, column=0, columnspan=11, sticky=tk.W)
@@ -164,9 +152,9 @@ class Window(tk.Frame):
 		now , past6, lowestday, lowest = currency_function(self.List[0])
 		self.cvsMain.create_rectangle(415,30,780,120, outline='darkslateblue',fill='darkslateblue')
 		self.cvsMain.create_text(600,20,fill="darkslateblue",font="Times 15 bold", text="台幣匯率")
-		self.cvsMain.create_text(425,45,fill="white",font="Times 10 bold", text=self.List[0] + '現在的匯率為： ' + str(now), anchor=W)
-		self.cvsMain.create_text(425,65,fill="white",font="Times 10 bold", text=self.List[0] + '六個月前的匯率為： ' + str(past6), anchor=W)
-		self.cvsMain.create_text(425,85,fill="white",font="Times 10 bold", text=self.List[0] + '六個月以來最低匯率為： ' + str(lowest), anchor=W)
+		self.cvsMain.create_text(600,45,fill="white",font="Times 10 bold", text=self.List[0] + '現在的匯率為： ' + str(now))
+		self.cvsMain.create_text(600,65,fill="white",font="Times 10 bold", text=self.List[0] + '六個月前的匯率為： ' + str(past6))
+		self.cvsMain.create_text(600,85,fill="white",font="Times 10 bold", text=self.List[0] + '六個月以來最低匯率為： ' + str(lowest))
 		#self.lbl_c = tk.Label(self.cvsMain, text='台幣匯率', borderwidth=1, relief="flat").grid(row=6, column=12, columnspan=11, sticky=tk.W)
 		#self.lbl_c1 = tk.Label(self.cvsMain, text=self.List[0] + '現在的匯率為： ' + str(now), borderwidth=1, relief="flat").grid(row=7, column=12, columnspan=11, sticky=tk.W)
 		#self.lbl_c2 = tk.Label(self.cvsMain, text=self.List[0] + '六個月前的匯率為： ' + str(past6), borderwidth=1, relief="flat").grid(row=8, column=12, columnspan=11, sticky=tk.W)
@@ -175,8 +163,8 @@ class Window(tk.Frame):
 		highest, lowest = temperature(self.List[1], self.List[2], self.List[3])
 		self.cvsMain.create_rectangle(20,180,390,270, outline='skyblue',fill='skyblue')
 		self.cvsMain.create_text(205,170,fill="skyblue",font="Times 15 bold", text="去年同期氣溫")
-		self.cvsMain.create_text(30,195,fill="white",font="Times 10 bold", text=self.List[1] + '所選日期區間最高氣溫： ' + highest, anchor=W)
-		self.cvsMain.create_text(30,215,fill="white",font="Times 10 bold", text=self.List[1] + '所選日期區間最低氣溫： ' + lowest, anchor=W)
+		self.cvsMain.create_text(205,195,fill="white",font="Times 10 bold", text=self.List[1] + '所選日期區間最高氣溫： ' + highest)
+		self.cvsMain.create_text(205,215,fill="white",font="Times 10 bold", text=self.List[1] + '所選日期區間最低氣溫： ' + lowest)
 		#self.lbl_t = tk.Label(self.cvsMain, text='去年同期氣溫', borderwidth=1, relief="flat").grid(row=6, column=24, columnspan=10, sticky=tk.W)
 		#self.lbl_t1 = tk.Label(self.cvsMain, text=self.List[1] + '所選日期區間最高氣溫： ' + highest, borderwidth=1, relief="flat").grid(row=7, column=24, columnspan=10, sticky=tk.W)
 		#self.lbl_t2 = tk.Label(self.cvsMain, text=self.List[1] + '所選日期區間最低氣溫： ' + lowest, borderwidth=1, relief="flat").grid(row=8, column=24, columnspan=10, sticky=tk.W)
@@ -187,15 +175,14 @@ class Window(tk.Frame):
 		#self.lbl_s = tk.Label(self.cvsMain, text='當前國家安全警示狀況', borderwidth=1, relief="flat").grid(row=6, column=35, columnspan=11, sticky=tk.W)
 		#self.lbl_s1 = tk.Label(self.cvsMain, text=safety_list[0], borderwidth=1, relief="flat").grid(row=7, column=35, columnspan=15, sticky=tk.W)
 		
-		
 		for i in range(len(safety_list)):
 			try:
 				value = safety_list[i]
 				if len(value) > 20 :
-					self.cvsMain.create_text(425,195,fill="white",font="Times 10 bold", text=value[:20], anchor=W)
-					self.cvsMain.create_text(425,215,fill="white",font="Times 10 bold", text=value[21:], anchor=W)
+					self.cvsMain.create_text(600,195,fill="white",font="Times 10 bold", text=value[:20])
+					self.cvsMain.create_text(600,215,fill="white",font="Times 10 bold", text=value[21:])
 				else:
-					self.cvsMain.create_text(425,195+20*i,fill="white",font="Times 10 bold", text=value, anchor=W)
+					self.cvsMain.create_text(600,195+20*i,fill="white",font="Times 10 bold", text=value)
 				#self.lbl_s2 = tk.Label(self.cvsMain, text=value, borderwidth=1, relief="flat").grid(row=7 + i, column=35, columnspan=15, sticky=tk.W)
 			except ValueError:
 				pass
@@ -205,32 +192,26 @@ class Window(tk.Frame):
 		# self.lbl_p4 = tk.Label(self.cvsMain, text=P_state[3], borderwidth=1, relief="flat").grid(row=10, column=35, columnspan=15, sticky=tk.W)
 		
 		
-
-		schedule_list = schedule(self.List[4], self.List[5], self.List[1])
-		print(schedule_list)
-		self.cvsMain.create_rectangle(20,320,780,360, outline='darkslategrey',fill='darkslategrey')
-		self.cvsMain.create_rectangle(20,360,780,600, outline='white', fill='white')
-		self.cvsMain.create_text(400,340,fill="white",font="Times 22 bold", text="推薦行程")
-
 		
-
+		schedule_list = schedule(self.List[4], self.List[5], self.List[1])
+		self.cvsMain.create_rectangle(20,320,780,360, outline='darkslategrey',fill='darkslategrey')
+		self.cvsMain.create_text(400,340,fill="white",font="Times 22 bold", text="推薦行程")
 		#self.lbl_sch = tk.Label(self.cvsMain, text='推薦行程', borderwidth=1, relief="flat").grid(row=11, column=0, columnspan=50, sticky=tk.W)
-		if not isinstance(schedule_list, str):
+		if isinstance(schedule_list, list):
 			for i in range(len(schedule_list)):
-				self.cvsMain.create_text(30,370+(80*i),fill="darkslategrey",font="Times 10 bold", text=schedule_list[i][0], anchor=W)
-				self.cvsMain.create_text(30,390+(80*i),fill="darkslategrey",font="Times 10 bold", text=schedule_list[i][1], anchor=W)
-				self.cvsMain.create_text(30,410+(80*i),fill="darkslategrey",font="Times 10 bold", text=schedule_list[i][3], anchor=W)
-				self.cvsMain.create_text(30,430+(80*i),fill="darkslategrey",font="Times 10 bold", text='', anchor=W)
+				self.cvsMain.create_text(400,370,fill="darkslategrey",font="Times 10 bold", text=schedule_list[i][0])
+				self.cvsMain.create_text(400,390,fill="darkslategrey",font="Times 10 bold", text=schedule_list[i][1])
+				self.cvsMain.create_text(400,410,fill="darkslategrey",font="Times 10 bold", text=schedule_list[i][3])
+				self.cvsMain.create_text(400,430,fill="darkslategrey",font="Times 10 bold", text='')
 				#self.lbl_sch1 = tk.Label(self.cvsMain, text=schedule_list[i][0], borderwidth=1, relief="flat").grid(row=12 + (3*i), column=0, columnspan=50, sticky=tk.W)
 				#self.lbl_sch2 = tk.Label(self.cvsMain, text=schedule_list[i][1], borderwidth=1, relief="flat").grid(row=13 + (3*i), column=0, columnspan=50, sticky=tk.W)
 				#self.lbl_sch3 = tk.Label(self.cvsMain, text=schedule_list[i][3], borderwidth=1, relief="flat").grid(row=14 + (3*i), column=0, columnspan=50, sticky=tk.W)
 				#self.lbl_sch4 = tk.Label(self.cvsMain, text='', borderwidth=1, relief="flat").grid(row=15 + (3*i), column=0, columnspan=50, sticky=tk.W)
 		else:
-			self.cvsMain.create_text(30,370,fill="darkslategrey",font="Times 10 bold", text=schedule_list, anchor=W)
+			self.cvsMain.create_text(400,370,fill="darkslategrey",font="Times 10 bold", text=schedule_list)
 			#self.lbl_sch5 = tk.Label(self.cvsMain, text=schedule_list, borderwidth=1, relief="flat").grid(row=12, column=0, columnspan=50, sticky=tk.W)
 		return self.List
 
-		
 
 	def getValue(self):
 		pass		
