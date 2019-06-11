@@ -14,7 +14,7 @@ def temperature(city_input, date1_input, date2_input):
 	city_path = city + '.csv'
 
 	#開啟溫度檔案
-	file =  '/Users/leepinghsun/Documents/GitHub/G21/main_function/氣溫csv/' + city_path  # need to change between computers
+	file =  './氣溫csv/' + city_path  # need to change between computers
 
 	#每個月分的天數
 	month = [31,28,31,30,31,30,31,31,30,31,30,31]
