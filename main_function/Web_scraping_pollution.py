@@ -55,7 +55,8 @@ class Get_pollution:
 
         #print(city)
         temp_dominentpool = str(data['data']['dominentpol'])
-        temp_dominentpool = temp_dominentpool[:1]+"."+temp_dominentpool[1:]
+        if temp_dominentpool == '25':
+            temp_dominentpool = temp_dominentpool[:1]+","+temp_dominentpool[1:]
         first = str("當下最嚴重污染物為："+temp_dominentpool)
         #print("一氧化碳："+str(data['data']['iaqi']['co']['v'])+" ppm")
         #print("二氧化氮："+str(data['data']['iaqi']['no2']['v'])+" ppm")
