@@ -20,7 +20,7 @@ def schedule(kwList_input, nolist_input, SelectCity_input):
     resultList = [] #存放符合的結果
     #走訪ouput.csv的info
     for aline in csv1:
-        if SelectCity == aline[fields[1]]: 
+        if SelectCity in aline[fields[1]]: 
             count = 0 #檢查找到的kw數
             info = aline[fields[5]]
 
