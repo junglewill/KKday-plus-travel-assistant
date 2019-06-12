@@ -112,7 +112,14 @@ class Window(tk.Frame):
 		self.cvsMain.grid(row=5, column=0, columnspan=18, sticky= tk.NE + tk.SW)
 		# self.lbl.grid(row=6, column=0, columnspan=4, sticky=tk.E)
 		
+
 		#self.Logo = os.path.join(os.path.dirname())
+		self.pic_raw = Image.open('coollogo_com-276451783 3.png')
+		zoom =0.4
+		pixels_x, pixels_y = tuple([int(zoom * x)  for x in self.pic_raw.size])
+		self.pic = ImageTk.PhotoImage(image=self.pic_raw.resize((pixels_x, pixels_y)))
+		self.pic_lb = tk.Label(self, image=self.pic)
+		self.pic_lb.grid(row=0,column=17,rowspan=2,columnspan=6)
 	
 
 	def check_time(self,start,end):  #比較結束時間是否小於開始時間
