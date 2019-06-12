@@ -3,7 +3,7 @@ import csv
 
 def schedule(kwList_input, nolist_input, SelectCity_input):
 
-    fn = '../爬蟲們/kkday_csv/tample.csv'
+    fn = '/Users/menma/Documents/GitHub/G21/main_function/kkday_csv/tample.csv'
     fh = open(fn, 'r', newline = '', encoding = 'utf-8')
     csv1 = csv.DictReader(fh)
     fields = csv1.fieldnames
