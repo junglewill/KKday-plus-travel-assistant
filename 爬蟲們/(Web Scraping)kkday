@@ -1,8 +1,9 @@
-#KKday：輸入城市地區
+#KKday：the traveling packages for the countries and cities we offered
 
-s_country = '日本'
-s_city = '沖繩'
+s_country = '日本' #Japan
+s_city = '沖繩' #Okinawa
 
+#The following are the country and city code in KKday, will be used in the web scraping process
 country = {
     '日本': 'A01-003',
     '韓國': 'A01-004',
@@ -29,7 +30,7 @@ city_id = city[s_city]
 
 print(country_id, city_id)
 
-#KKday：抓網址內容
+#KKday：web scraping 
 
 import requests
 import json
@@ -47,13 +48,13 @@ res = requests.get(url)
 data  = json.loads(res.text)
 
 itineraries = []
-for i, d in enumerate(data): #建立 標題、網址代碼
+for i, d in enumerate(data): #create title and id for the url
     itineraries.append({
         'id':d['id'],
         'title':d['name']})
 print(itineraries)
 
-#跑一個地區的所有行程
+#get all the itineraries for the cities from the database 
 
 def getContentFromPage(dic_i):
     detail_id = 'https://www.kkday.com/zh-tw/product/' + dic_i['id']
@@ -63,12 +64,12 @@ def getContentFromPage(dic_i):
     chrome_options.add_argument("--headless")       # define headless
     driver = webdriver.Chrome(options=chrome_options) 
     
-    #取得原始碼
+    #get the detail id
     driver.get(detail_id)
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
 
-    # 找到清理 info
+    # find and clean up the info
     def toContent(raw_html):
         cleanr = re.compile('<.*?>')
         cleantext = re.sub(cleanr, '', raw_html) 
@@ -79,7 +80,7 @@ def getContentFromPage(dic_i):
     rawInfo = str(p)
     info = toContent(rawInfo)
     
-    # 找到清理 price
+    # find and clean up the price
     def toD(p_string):
         digit = ''.join(i for i in p_string if i.isdigit())
         return int(digit)
@@ -89,7 +90,7 @@ def getContentFromPage(dic_i):
 
 for dic_i in itineraries:
     info, price = getContentFromPage(dic_i)
-    dic_i.update({"price": price}) #新增 price key 到字典
+    dic_i.update({"price": price}) #increase price key into the dictionary
     dic_i.update({"info": info})
 
 print(itineraries)
@@ -97,7 +98,7 @@ print(itineraries)
 
 
 
-#轉成pandas、輸出成csv
+#change to pandas, print out as csv file
 import csv
 
 import numpy as np
