@@ -89,7 +89,7 @@ def print_poll(city,data):
 
 
 
-#主程式
+#main function
 city_chosen = str(input())
 data = choose_city(city_chosen)
 print_poll(city_chosen,data)
