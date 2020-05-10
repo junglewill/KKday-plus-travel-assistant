@@ -1,7 +1,7 @@
 import csv
 
 def temperature(city_input, date1_input, date2_input):
-	#使用這輸入城市名稱和日期，日期格式為8位數字
+	#input the date and city name, noted that the date's format is XXXXXXXX in number
 	city_CN = city_input
 	date1 = date1_input
 	date2 = date2_input
@@ -13,13 +13,13 @@ def temperature(city_input, date1_input, date2_input):
 	city = trans_dict[city_CN]
 	city_path = city + '.csv'
 
-	#開啟溫度檔案
+	#open the temperature file
 	file =  '/Users/leepinghsun/Documents/GitHub/G21/main_function/氣溫csv/' + city_path  # need to change between computers
 
-	#每個月分的天數
+	#the number of days in each month
 	month = [31,28,31,30,31,30,31,31,30,31,30,31]
 
-	#把日期換成每年第幾天
+	#change the date into day X in each year
 	day1 = 0
 	day2 = 0
 		
@@ -34,12 +34,12 @@ def temperature(city_input, date1_input, date2_input):
 
 	day2 += 10 * int(date2[6]) + int(date2[7])
 		
-	#找到那天的氣溫資料	
+	#find the temperature data for that specific day	
 	n = 0
 	with open(file, newline='', encoding='cp950') as csvFile:
-		#直接讀取：讀取 CSV 檔案內容
+		#read directly: read the csv file 
 		rows = csv.reader(csvFile)
-		# 迴圈輸出 每一列
+		# for loop the rows
 		for row in rows:
 			n += 1 
 			if day1 + 1 <= n <= day2 + 1:
