@@ -4,6 +4,7 @@ from lxml import etree
 from six import u
 from six.moves.urllib import request
 
+# Get the latest currency exchange rate from Taiwanese bank
 class Currency():
     __CURRENT_QUOTE_URL = 'http://rate.bot.com.tw/xrt?Lang=zh-TW'
     __HISTORY_QUOTE_URL_PATTERN = 'http://rate.bot.com.tw/xrt/quote/{range}/{currency}'
@@ -17,7 +18,7 @@ class Currency():
         
 
     def now_all(self):
-        """ 取得目前所有幣別的牌告匯率
+        """ Get the exchange rates for all currencies
             :rtype: dict
         """
         ret = {}
@@ -42,22 +43,22 @@ class Currency():
 
 
     def now(self, currency):
-        """ 取得目前指定幣別的牌告匯率
-            :param str currency: 貨幣代號
+        """ Get the exchange rate for target currency 
+            :param str currency: 貨幣代號 currency id
             :rtype: list
         """
         return self.now_all()[currency]
 
 
     def currencies(self):
-        """ 取得所有幣別代碼
+        """ get the id for all the currencies
             :rtype: list
         """
         return list(self.currency_name_dict().keys())
 
 
     def currency_name_dict(self):
-        """ 取得所有幣別的中文名稱
+        """ get the chinese name for all the currencies
             :rtype: dict
         """
         if not self.__NAME_DICT:
@@ -82,8 +83,8 @@ class Currency():
 
 
     def past_day(self, currency):
-        """ 取得最近一日的報價
-            :param str currency: 貨幣代號
+        """ Get the currency exchange rate one-day-before
+            :param str currency: 貨幣代號 currency id
             :rtype: list
         """
         return self.__parse_history_page(
@@ -92,16 +93,16 @@ class Currency():
 
 
     def past_six_month(self, currency):
-        """ 取得最近六個月的報價(包含貨幣名稱)
-            :param str currency: 貨幣代號
+        """ Get the currency name and exchange rate 6 months ago from now
+            :param str currency: 貨幣代號 currency id
             :rtype: list
         """
         return self.__parse_history_page(self.__HISTORY_QUOTE_URL_PATTERN.format(currency=currency, range='l6m'))
 
 
     def specify_month(self, currency, year, month):
-        """ 取得指定月份的報價(包含貨幣名稱)
-            :param str currency: 貨幣代號
+        """ get the currency exchange rate and name for the terget month
+            :param str currency: 貨幣代號 currency id
             :param int year: 年
             :param int month: 月
             :rtype: list
@@ -120,14 +121,14 @@ def currency_function(country_input):
             country_eng = country_dict[key]
             break
 
-    nowadays = C.now(country_eng)  # 印出現在匯率資料
+    nowadays = C.now(country_eng)  # print the currency data 
     print(country + '現在的匯率為：' , nowadays[2])
-    past_6month = C.past_six_month(country_eng)  # 取得六個月內所有匯率收盤資料
+    past_6month = C.past_six_month(country_eng)  # print the currency data for 6 months before
     print(country + '六個月前的匯率為：', past_6month[-1][2])
 
     lowest = 10000
     lowest_day = []
-    for i in past_6month:  # 找出最低匯率，由於取得的會是elementTree的資料，所以先encode成utf-8資料再decode成string資料
+    for i in past_6month:  # find the lowest exchange in the past 6 months. The data is in the form of elementTree, encoded as utf-8 and then decode as string
         if float(i[2].encode().decode()) < lowest:
             lowest = float(i[2].encode().decode())
             lowest_day = []
