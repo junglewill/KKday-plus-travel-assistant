@@ -1,4 +1,4 @@
-# KKday_plus
+# KKday+
 
 KKday+ is a personal traveling assistant help you to find the best traveling packages based on what you like or dislike. It also offers the supplemental information including currency exchange rate, weather, national threat level, and air condition for you to prepare your trip in advance. 
 
