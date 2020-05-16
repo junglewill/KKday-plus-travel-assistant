@@ -1,6 +1,6 @@
-# KKday+
+# KKday+ Travel Assistant
 
-KKday+ is a personal traveling assistant help you to find the best traveling packages based on what you like or dislike. It also offers the supplemental information including currency exchange rate, weather, national threat level, and air condition for you to prepare your trip in advance. 
+KKday+ is a personal travel assistant help you to find the best traveling packages based on what you like or dislike. It also offers the supplemental information including currency exchange rate, weather, national threat level, and air condition for you to prepare your trip in advance. 
 
 It is a python project using tkinter as the GUI.
 
